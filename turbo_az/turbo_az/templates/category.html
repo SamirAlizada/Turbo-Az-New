@@ -1,0 +1,71 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h1>{{category.category_name}}</h1>
+        <div class="row">
+            <div class="col-sm-4">
+                <br><br>
+                {% for category in categories %}
+                    <ul class="list-group">
+                        <a href="{% url 'category_detail' category.pk %}">
+                            <li class="list-group-item">{{category.category_name}}</li>
+                        </a>
+                    </ul>
+                    <br>
+                {% endfor %}
+            </div>
+            
+        <div class="col-sm-8">
+            <br><br>
+        <center>
+        <form method="POST" action="" style="margin:auto:max-width:350px">
+            {% csrf_token %}
+            <input type="text" placeholder = "Search..." name="search">
+            <button type="submit" class="btn btn-success">Axtar</button>
+        </form>
+        <br><br>
+        </center>
+        {% if results %}
+        {% for product in results %}
+        <center>
+            <div class="card" style="width: 25rem; height: 250px">
+                <img src="/media/{{product.product_image}}" class="card-img-top" alt="{{product.product_image}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.product_name}}</h5>
+                    <p class="card-text">{{product.product_description}}</p>
+                    <p class="card-text" style="background-color:red; color: white" >{{product.product_price}} AZN</p>
+                    {% comment %} <small>{{product.likes}}</small> {% endcomment %}
+                    <br>
+                    <a href="{% url 'product-detail' product.pk %}" class="btn btn-primary">Ətraflı</a>
+                </div>
+            </div>
+            <br><br>
+        </center>
+        {% endfor %}
+        {% else %}
+        {% comment %} <center><h1>Not data found</h1></center> {% endcomment %}
+        {% for product in products %}
+        <center>
+            <div class="card" style="width: 25rem; height: 250px">
+                {% comment %} <img src="{{product.product_image.url}}" class="card-img-top" alt="{{product.product_image}}"> {% endcomment %}
+                <div class="card-body">
+                    <h5 class="card-title">{{product.product_name}}</h5>
+                    <p class="card-text">{{product.product_description}}</p>
+                    <p class="card-text" style="background-color:red; color: white" >{{product.product_price}} AZN</p>
+                    {% comment %} <small>{{product.likes}}</small> {% endcomment %}
+                    <br>
+                    <a href="{% url 'product-detail' product.pk %}" class="btn btn-primary">Ətraflı</a>
+                </div>
+            </div>
+            <br><br>
+        </center>
+        {% endfor %}
+        {% endif %}
+        </div>
+        </div>
+    </div>
+
+{% endblock content %}

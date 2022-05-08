@@ -1,0 +1,10 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'index' %}">Turbo Az</a>
+  {% if user.is_authenticated %}
+      <a class="navbar-brand" href="{% url 'create-product' %}">Məhsul əlavə et</a>
+      <a class="navbar-brand" href="{% url 'user_logout' %}">Çıxış</a>
+  {% else %}
+      <a class="navbar-brand" href="{% url 'user_login' %}">Daxil ol</a>
+      <a class="navbar-brand" href="{% url 'user_register' %}">Qeydiyyatdan Keç</a>
+  {% endif %}
+</nav>
